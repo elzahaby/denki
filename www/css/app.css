@@ -1,0 +1,589 @@
+/* Your app styles here */
+input::-ms-clear, input::-ms-reveal {
+    display: none;
+}
+/* Default Statusbar background */
+.statusbar {
+  background: white;
+  /* We can add transition for smooth color animation */
+  transition: 400ms;
+}
+
+/* Change Statusbar background when panel opened/*
+html.with-panel-left-cover .statusbar {
+  background: white;
+}
+/*
+@media screen and (min-width: 1441px) {
+	body {
+		background-color:#f5f5f5;
+	}
+	#app {
+		height: calc(100% - 38px);
+		top: 19px;
+		width: 1396px;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+		margin: 0 auto;
+		-webkit-animation: _104Un 0.3s cubic-bezier(0.1, 0.82, 0.25, 1);
+		animation: _104Un 0.3s cubic-bezier(0.1, 0.82, 0.25, 1);
+	}
+	
+	body::after {
+		position: fixed;
+		z-index: -1;
+		width: 100%;
+		height: 127px;
+		content: '';
+		top: 0;
+		left: 0;
+		background-color: #333;
+	}
+	.panel-x {
+		width:30%;
+	}
+	.panel-visible-by-breakpoint.panel-right::after{
+		content: '';
+		position:absolute;
+		left:0;
+		top:0;
+		bottom:0;
+		background: rgba(0, 0, 0, 0.08);
+		width:1px;
+		z-index: 10000;
+	}
+
+	@-webkit-keyframes _104Un {
+	  from {
+		-webkit-transform: scale(1.4);
+				transform: scale(1.4);
+		opacity: 0; }
+	  to {
+		-webkit-transform: scale(1);
+				transform: scale(1);
+		opacity: 1; } 
+	}
+
+	@keyframes _104Un {
+	  from {
+		-webkit-transform: scale(1.4);
+				transform: scale(1.4);
+		opacity: 0; }
+	  to {
+		-webkit-transform: scale(1);
+				transform: scale(1);
+		opacity: 1; } 
+	}
+}
+*/
+.md .icon-back, .md .icon-forward {
+	background:none !important;
+	font-weight: 900;
+	width: auto;
+	height: auto;
+	-moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-family: Font Awesome\ 5 Free;
+}
+.md .icon-back:before {
+    content: "\f053";
+}
+.md .icon-forward:before {
+    content: "\f054";
+}
+
+.md .navbar:after {
+    background: linear-gradient(to bottom,rgba(0,0,0,.09) 0%,rgba(0,0,0,.06) 40%,rgba(0,0,0,.04) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
+}
+
+.md .panel-visible-by-breakpoint.panel-left {
+    border-right: 1px solid #e5e9ec;
+}
+@media (min-width: 768px) {
+    .view-main .navbar .panel-open[data-panel=left] {
+        display: none;
+    }
+}
+/*
+.popup-backdrop.backdrop-in {
+	
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+*/
+
+.cards-content {
+    max-width: 600px;
+	margin:auto;
+}
+
+time.icon
+{
+  font-size: 1em; /* change icon size */
+  display: block;
+  position: relative;
+  width: 4em;
+  padding: 3px 3px 0;
+  background-color: #fff;
+  border-radius: 0.6em;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+time.icon strong
+{
+  top: 0;
+  padding: 0;
+  color: #fa3e3e;
+}
+
+time.icon em
+{
+  bottom: 0.3em;
+  color: #fd9f1b;
+}
+
+time.icon span
+{
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+  color: #2f2f2f;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    top: 0;
+    bottom: initial;
+    left: 0;
+    width: 100%;
+}
+.swiper-pagination-bullet {
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+}
+
+.swiper-slide {
+    background-size: cover;
+	background-position:center center;
+}
+
+.md .cardboard .swiper-pagination-bullet-active {
+    background: white;
+}
+.card {
+	border-radius: 8px;
+}
+
+.cardboard-wrapper {
+  height:100%;
+  max-height: calc(100vh - 30px - 70px - 100px);
+  padding: 1rem 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-box-pack: center!important;
+    -webkit-justify-content: center!important;
+    -ms-flex-pack: center!important;
+}
+
+.cardboard {
+  position: relative;
+  height:100%;
+  width:100%;
+  margin-top: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.cardboard .pulse {
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  animation: out 1.5s infinite ease-out;
+  background: rgba(0, 230, 118, 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0px 0px -25px;
+}
+
+.text-ellipsis {
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.keep-aspect {
+  padding-bottom: 75%;
+  position: relative;
+}
+
+@media screen and (min-width: 48em) {
+	.keep-aspect {
+	  padding-bottom: 50%;
+	  position: relative;
+	}
+}
+.keep-aspect > div {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+@keyframes out {
+  0% {box-shadow: 0px 0px 0px 0px rgba(0, 230, 118, 1);} 
+  100% {box-shadow: 0px 0px 0px 100px rgba(0, 230, 118, 0.0);}
+}
+
+@media only screen and (min-width: 768px) {
+	.cardboard {
+		max-width: 375px;
+		height: 667px;
+		margin-top: 0;
+		padding: 1rem 0;
+	}
+}
+
+.md .cardboard .card {
+    box-shadow: none;
+	border-radius: 8px;
+	margin:0;
+  z-index: 1501;
+}
+
+.cardboard .card:first-child {
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
+}
+
+.cardboard .card.moving {
+  z-index: 1501;
+}
+.cardboard-container {
+  position: relative;
+  height:100%;
+  width:100%;
+  margin: 0 auto;
+}
+
+.card-pic .card-background {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  border-radius: 8px;
+  min-height: 44px;
+  position: relative;
+  font-weight:bold;
+}
+
+.md .card-background .card-footer {
+	color:white;
+}
+
+.card-pic .card-background .gradient {
+position: absolute;
+background-image: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+height: 30%;
+left:0;
+right:0;
+bottom:0;
+border-bottom-left-radius: 8px;
+border-bottom-right-radius: 8px;
+z-index: 1;
+}
+
+.card-info {
+  text-shadow: 0 2px 4px rgba(0,0,0,.2);
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:2;
+  padding:0 16px 16px;
+}
+
+.FzL {
+	line-height: 1.2;
+    font-size: 2.0em;
+}
+.FzS {
+	line-height: 1.2;
+    font-size: 1.3em;
+}
+.md .FzS .chip {
+    color:white;
+}
+.rec__card {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  will-change:transform;
+}
+
+.rec__card .swiper-container {
+	width: 100%;
+    height: 100%;
+    position: absolute;
+	border-radius:8px;
+}
+
+.rec__card.reset {
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transform: translateX(0) !important;
+          transform: translateX(0) !important;
+}
+.rec__card.reset .rec__card__choice {
+  transition: opacity 0.3s;
+  opacity: 0 !important;
+}
+.rec__card.inactive {
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+.rec__card.to-left {
+  -webkit-transform: translateX(-30rem) rotate(-30deg) !important;
+          transform: translateX(-30rem) rotate(-30deg) !important;
+}
+.rec__card.to-right {
+  -webkit-transform: translate(30rem) rotate(30deg) !important;
+          transform: translate(30rem) rotate(30deg) !important;
+}
+.rec__card.below {
+  z-index: 1;
+}
+
+.rec__card.inactive {
+	display:none;
+}
+
+.rec__card__choice {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index:1;
+  opacity: 0;
+}
+.rec__card__choice i {
+  pointer-events: none;
+  position: absolute;
+  color:white;
+  font-size: 300%;
+}
+.rec__card__choice.m--reject {
+  background: #ff945a;
+  border-radius: 8px;
+}
+.rec__card__choice.m--reject i {
+	top: 20px;
+	right: 20px;
+}
+.rec__card__choice.m--like {
+  background: #b1da96;
+  border-radius: 8px;
+}
+.rec__card__choice.m--like i {
+	top: 20px;
+	left: 20px;
+}
+.rec__card__choice.m--like:after {
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
+}
+
+.svg-symbol {
+    fill: currentColor;
+}
+
+.sharing-menu {
+    margin: 1.25rem 0 3.5rem;
+}
+
+.sharing-menu__items {
+    overflow: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+
+.sharing-menu__item {
+    float: left;
+    line-height: 2.125rem;
+    margin-right: .4375rem;
+    margin-bottom: .4375rem
+}
+
+.sharing-menu__item--printbutton {
+    display: none
+}
+
+.sharing-menu__link {
+    border-radius: 4px;
+    color: #fff !important;
+    display: block;
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+    text-align: center
+}
+
+.sharing-menu__link:hover,
+.sharing-menu__link:active,
+.sharing-menu__link:focus {
+    color: #fff
+}
+
+.sharing-menu__link--facebook {
+    background-color: #3b5998
+}
+
+.sharing-menu__link--facebook:hover,
+.sharing-menu__link--facebook:active,
+.sharing-menu__link--facebook:focus {
+    background-color: #254280
+}
+
+.sharing-menu__link--flipboard {
+    background-color: #e64343
+}
+
+.sharing-menu__link--flipboard:hover,
+.sharing-menu__link--flipboard:active,
+.sharing-menu__link--flipboard:focus {
+    background-color: #d12626
+}
+
+.sharing-menu__link--twitter {
+    background-color: #4099ff
+}
+
+.sharing-menu__link--twitter:hover,
+.sharing-menu__link--twitter:active,
+.sharing-menu__link--twitter:focus {
+    background-color: #227DE6
+}
+
+.sharing-menu__link--whatsapp {
+    background-color: #25d366
+}
+
+.sharing-menu__link--whatsapp:hover,
+.sharing-menu__link--whatsapp:active,
+.sharing-menu__link--whatsapp:focus {
+    background-color: #1ea952
+}
+
+.sharing-menu__link--messenger {
+    background-color: #2998ff
+}
+
+.sharing-menu__link--messenger:hover,
+.sharing-menu__link--messenger:active,
+.sharing-menu__link--messenger:focus {
+    background-color: #1f72bf
+}
+
+.sharing-menu__link--mail {
+    background-color: #99999c
+}
+
+.sharing-menu__link--mail:hover,
+.sharing-menu__link--mail:active,
+.sharing-menu__link--mail:focus {
+    background-color: #77777c
+}
+
+.sharing-menu__link--pocket {
+    background-color: #ed4055
+}
+
+.sharing-menu__link--pocket:hover,
+.sharing-menu__link--pocket:active,
+.sharing-menu__link--pocket:focus {
+    background-color: #d13044
+}
+
+.sharing-menu__text {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+.sharing-menu__icon {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.sharing-menu__icon--facebook {
+    height: 1.25rem;
+    width: .625rem
+}
+
+.sharing-menu__icon--flipboard {
+    height: 1.1875rem;
+    margin-top: .125rem;
+    width: 1.1875rem
+}
+
+.sharing-menu__icon--twitter {
+    height: 1rem;
+    width: 1.3125rem
+}
+
+.sharing-menu__icon--whatsapp,
+.sharing-menu__icon--messenger {
+    height: 1.375rem;
+    width: 1.375rem
+}
+
+.sharing-menu__icon--mail {
+    height: .875rem;
+    width: 1.25rem
+}
+
+.sharing-menu__icon--pocket {
+    height: 1.125rem;
+    padding-left: 1px;
+    width: 1.375rem
+}
+
+@media screen and (min-width: 48em) {
+    .sharing-menu__item--whatsapp,
+    .sharing-menu__item--messenger {
+        display: none
+    }
+}

@@ -1,0 +1,69 @@
+<template>
+	<div class="page">
+		<div class="navbar bg-color-white text-color-black">
+			<div class="navbar-inner">
+				<div class="left"></div>
+				<div class="title">Seeds</div>
+				<div class="right">
+                    <a href="#" class="link" @click="newSeed" ><i class="fas fa-seedling"></i></a>
+                </div>
+			</div>
+		</div>
+		<div class="page-content">
+            <div class="list media-list">
+                <ul>
+                    {{#each seed}}
+                    <li>
+                        <a href="#" data-reload-all="true" data-view=".view-main" class="item-link item-content">
+                            <div class="item-media"><i class="fas fa-leaf"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{{name}}</div>
+                                    <div class="item-after">{{dateFormat created format="DD. MM."}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+		</div>
+	</div>
+</template>
+<script>
+return {
+	data: function() {
+        return {
+            seed : JSON.parse(localStorage.getItem("seed")),
+        }
+	},
+    methods: {
+        newSeed: function (e) {
+            var self = this;
+            var app = self.$app;
+            //localStorage.setItem("seed", JSON.stringify([]));
+            app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
+                console.log(self);
+                self.seed[self.seed.length] = {
+                    name: name,
+                    created: Date.now(),
+                    words : {}
+                };
+                localStorage.setItem("seed", JSON.stringify(self.seed));
+                self.$setState({
+                    seed: self.seed,
+                });
+            });
+        },
+    },
+	on: {
+		pageBeforeRemove: function () {
+		},
+		pageBeforeIn: function() {
+			var self = this;
+			var app = self.$app;
+			
+		}
+	}
+}
+</script>

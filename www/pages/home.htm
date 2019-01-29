@@ -1,0 +1,161 @@
+<template>
+	<div class="page">
+        <div class="navbar  bg-color-white text-color-black no-shadow">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" data-panel="left" class="panel-open link"><i class="fab fa-pagelines"></i></a>
+                </div>
+                <div class="title">Word</div>
+                <div class="right">
+                    <a href="#" class="link" @click="clear"><i class="fas fa-wind"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar messagebar">
+            <div class="toolbar-inner">
+                <div class="messagebar-area">
+                    <!-- messagebar resizable textarea -->
+                    <textarea class="resizable" placeholder="Word"></textarea>
+                </div>
+                <a href="#" class="link text-color-green" @click="seed">
+                    <i class="fas fa-leaf"></i>
+                </a>
+            </div>
+        </div>
+		<div class="page-content">
+            <div id="bubbles"></div>
+		</div>
+	</div>
+</template>
+<style>
+#bubbles {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right: 0;
+}
+</style>
+<script>
+	return {
+        data: function() {
+            var self = this;
+            var app = self.$app;
+            var seed = JSON.parse(localStorage.getItem("seed"));
+            var index = seed.length-1;
+            if(self.$route.params.id && seed[self.$route.params.id])
+                index = self.$route.params.id
+            return {
+                index : index,
+                words : seed[index],
+            }
+        },
+		methods: {
+			seed: function (e) {
+				var self = this;
+				var btn = self.$(e.srcElement)
+                var word = self.messageBar.getValue();
+                if(word.trim() != '' && !self.messageBar.sending){
+                    self.messageBar.sending = true;
+                    
+                    var seed = JSON.parse(localStorage.getItem("seed"));
+                    var lastWordIndex = seed[self.index].words.length
+                    if(!lastWordIndex)
+                        lastWordIndex = 0;
+                    seed[self.index].words[lastWordIndex] = {label : word}
+                    localStorage.setItem("seed", JSON.stringify(seed));
+                    setTimeout(function(){ 
+                        self.messageBar.clear()
+                        self.nodes.add({
+                            label: word,
+                        });
+                        self.messageBar.sending = false;
+                    }, 500);
+                }
+			},
+            clear: function (e) {
+                var self = this;
+                self.nodes.clear()
+                var seed = JSON.parse(localStorage.getItem("seed"));
+                seed[self.index].words = [];
+                localStorage.setItem("seed", JSON.stringify(seed));
+            }
+		},
+		on: {
+			pageAfterIn: function() {
+				var self = this;
+				var app = self.$app;
+                
+                self.messageBar = app.messagebar.create({
+                    el: '.messagebar',
+                });
+                
+                var seed = JSON.parse(localStorage.getItem("seed"));
+                self.index = seed.length-1;
+                if(self.$route.params.id && seed[self.$route.params.id])
+                    self.index = self.$route.params.id
+                
+                
+                    console.log(seed[self.index].words)
+                self.nodes = new vis.DataSet(seed[self.index].words);
+                var edges = new vis.DataSet();
+
+                var container = document.getElementById('bubbles');
+                var data = {
+                  nodes: self.nodes,
+                  edges: edges
+                };
+
+                var options = {
+                    autoResize: true,
+                    height: '100%',
+                    width: '100%',
+                    nodes: {
+                        borderWidth:1,
+                        shape:"circle",
+                        color:{
+                                background:'#F92C55', 
+                                border: '#d3062f',
+                                highlight:{
+                                    background:'#fb7691',
+                                    border: '#fa4569'
+                                }
+                        },
+                        font:{
+                            color:'#fff'
+                        },
+                        widthConstraint: {
+                            minimum: 10,
+                            maximum: 110,
+                        }
+                    },
+                    physics: {
+                        barnesHut: {
+                            centralGravity:0.2,
+                            avoidOverlap: 0,
+                        },
+                        stabilization: false,
+                        minVelocity:  0.01,
+                        solver: "repulsion",
+                        repulsion: {
+                            nodeDistance: 45
+                        }
+                    }
+                };
+                self.network = new vis.Network(container, data, options);
+
+                // Events
+                self.network.on("click", function(e) {
+                  if (e.nodes.length) {
+                    var node = self.nodes.get(e.nodes[0]);
+                    // Do something
+                    console.log(node);
+                    self.nodes.update(node);
+                  }
+                });
+			},
+		}
+	}
+</script>
