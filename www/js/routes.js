@@ -5,7 +5,7 @@ var routes = [
 		componentUrl: './pages/home.htm',
 	},
 	{
-		path: '/home',
+		path: '/home/:id',
 		componentUrl: './pages/home.htm',
 	},
 	{

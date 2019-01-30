@@ -66,7 +66,12 @@
 	app.viewMain = app.views.create('.view-main', { url: '/', main: true, });
 	app.viewLeft = app.views.create('.view-left', { url: '/left', pushState: false, });
     app.init();
-    app.viewMain.router.navigate('/home');
+    var seed = JSON.parse(localStorage.getItem("seed"));
+    //console.log(app.viewMain);
+    if(seed)
+        app.viewMain.router.navigate('/home/'+(seed.length-1));
+    else
+        app.viewMain.router.navigate('/home/0');
     
     app.$(document).on('deviceready', function() {
         StatusBar.overlaysWebView(true);

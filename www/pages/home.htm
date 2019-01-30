@@ -5,7 +5,7 @@
                 <div class="left">
                     <a href="#" data-panel="left" class="panel-open link"><i class="fab fa-pagelines"></i></a>
                 </div>
-                <div class="title">Word</div>
+                <div class="title">{{title}}</div>
                 <div class="right">
                     <a href="#" class="link" @click="clear"><i class="fas fa-wind"></i></a>
                 </div>
@@ -43,13 +43,8 @@
         data: function() {
             var self = this;
             var app = self.$app;
-            var seed = JSON.parse(localStorage.getItem("seed"));
-            var index = seed.length-1;
-            if(self.$route.params.id && seed[self.$route.params.id])
-                index = self.$route.params.id
             return {
-                index : index,
-                words : seed[index],
+                title : '',
             }
         },
 		methods: {
@@ -58,21 +53,23 @@
 				var btn = self.$(e.srcElement)
                 var word = self.messageBar.getValue();
                 if(word.trim() != '' && !self.messageBar.sending){
-                    self.messageBar.sending = true;
+                    self.messageBar.sending = false;
                     
-                    var seed = JSON.parse(localStorage.getItem("seed"));
-                    var lastWordIndex = seed[self.index].words.length
+                    var oldSeed = JSON.parse(localStorage.getItem("seed"));
+                    var lastWordIndex = oldSeed[self.index].words.length
+                    
                     if(!lastWordIndex)
                         lastWordIndex = 0;
+                    
+                    var seed = oldSeed;
                     seed[self.index].words[lastWordIndex] = {label : word}
                     localStorage.setItem("seed", JSON.stringify(seed));
-                    setTimeout(function(){ 
-                        self.messageBar.clear()
-                        self.nodes.add({
-                            label: word,
-                        });
-                        self.messageBar.sending = false;
-                    }, 500);
+
+                    self.messageBar.clear()
+                    self.nodes.add({
+                        label: word,
+                    });
+                    self.messageBar.sending = false;
                 }
 			},
             clear: function (e) {
@@ -93,13 +90,45 @@
                 });
                 
                 var seed = JSON.parse(localStorage.getItem("seed"));
-                self.index = seed.length-1;
-                if(self.$route.params.id && seed[self.$route.params.id])
-                    self.index = self.$route.params.id
+                
+                self.index = 0;
+                
+                if(seed && seed.length > 0)
+                    self.index = seed.length-1;
+                
+                if(self.$route.params.id && seed) {
+                    if(seed[self.$route.params.id]) 
+                        self.index = self.$route.params.id
+                }
+                if(seed && seed[self.index]) {
+                    self.nodes = new vis.DataSet(seed[self.index].words);
+                    self.$setState({
+                        title: seed[self.index].name,
+                    });
+                } else {
+                    self.nodes = new vis.DataSet();
+                    app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
+                        var index = 0;
+                        if(self.seed && self.seed.length > 0)
+                            index = self.seed.length
+                        else
+                            self.seed = [];
+
+                        self.seed[index] = {
+                            name: name,
+                            created: Date.now(),
+                            words : []
+                        };
+                        console.log(self.seed);
+                        localStorage.setItem("seed", JSON.stringify(self.seed));
+                        self.$setState({
+                            seed: self.seed,
+                        });
+                    });
+                }
                 
                 
-                    console.log(seed[self.index].words)
-                self.nodes = new vis.DataSet(seed[self.index].words);
+                
                 var edges = new vis.DataSet();
 
                 var container = document.getElementById('bubbles');
@@ -107,7 +136,6 @@
                   nodes: self.nodes,
                   edges: edges
                 };
-
                 var options = {
                     autoResize: true,
                     height: '100%',
@@ -156,6 +184,10 @@
                   }
                 });
 			},
+            pageBeforeOut: function (e, page) {
+                self.nodes.destroy();
+                self.network.destroy();
+            },
 		}
 	}
 </script>
