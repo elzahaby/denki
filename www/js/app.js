@@ -35,8 +35,8 @@
             scrollTopClick: true,
             enabled: true,
             overlay: Framework7.device.ios ? true : 'auto',
-            iosTextColor: 'black',
-            androidTextColor: 'black',
+            iosTextColor: '#000000',
+            androidTextColor: '#000000',
             iosBackgroundColor: '#ffffff',
             androidBackgroundColor: '#efefef',
         },
@@ -75,6 +75,7 @@
     
     app.$(document).on('deviceready', function() {
         StatusBar.overlaysWebView(true);
+        StatusBar.styleDefault();
         if (cordova.platformId == 'android') {
             StatusBar.show();
         }
