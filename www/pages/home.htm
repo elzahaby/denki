@@ -109,17 +109,13 @@
                     self.nodes = new vis.DataSet();
                     app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
                         var index = 0;
-                        if(self.seed && self.seed.length > 0)
-                            index = self.seed.length
-                        else
-                            self.seed = [];
+                        self.seed = [];
 
                         self.seed[index] = {
                             name: name,
                             created: Date.now(),
                             words : []
                         };
-                        console.log(self.seed);
                         localStorage.setItem("seed", JSON.stringify(self.seed));
                         self.$setState({
                             seed: self.seed,
