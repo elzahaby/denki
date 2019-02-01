@@ -81,7 +81,7 @@
         }
 
         if(app.device.ios) {
-            Keyboard.shrinkView(true);
+            //Keyboard.shrinkView(true);
             Keyboard.disableScrollingInShrinkView(true);
             Keyboard.hideFormAccessoryBar(true);
         }
