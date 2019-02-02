@@ -62,12 +62,13 @@
                         lastWordIndex = 0;
                     
                     var seed = oldSeed;
-                    seed[self.index].words[lastWordIndex] = {label : word}
+                    seed[self.index].words[lastWordIndex] = {label : word, id: lastWordIndex,}
                     localStorage.setItem("seed", JSON.stringify(seed));
 
                     self.messageBar.clear()
                     self.nodes.add({
                         label: word,
+                        id: lastWordIndex,
                     });
                     self.messageBar.sending = false;
                 }
@@ -105,35 +106,17 @@
                     self.$setState({
                         title: seed[self.index].name,
                     });
-                } else {
-                    self.nodes = new vis.DataSet();
-                    app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
-                        var index = 0;
-                        self.seed = [];
-
-                        self.seed[index] = {
-                            name: name,
-                            created: Date.now(),
-                            words : []
-                        };
-                        localStorage.setItem("seed", JSON.stringify(self.seed));
-                        self.$setState({
-                            seed: self.seed,
-                        });
-                    });
                 }
-                
-                
                 
                 var edges = new vis.DataSet();
 
                 var container = document.getElementById('bubbles');
                 var data = {
-                  nodes: self.nodes,
-                  edges: edges
+                    nodes: self.nodes,
+                    edges: edges
                 };
                 var options = {
-                    autoResize: true,
+                    autoResize: false,
                     height: '100%',
                     width: '100%',
                     nodes: {
@@ -172,12 +155,17 @@
 
                 // Events
                 self.network.on("click", function(e) {
-                  if (e.nodes.length) {
-                    var node = self.nodes.get(e.nodes[0]);
-                    // Do something
-                    console.log(node);
-                    self.nodes.update(node);
-                  }
+                    if (e.nodes.length) {
+                        var node = self.nodes.get(e.nodes[0]);
+                        // Do something
+                        //console.log(node);
+                        self.nodes.remove(node);
+                        
+                        var oldSeed = JSON.parse(localStorage.getItem("seed"));
+                        oldSeed[self.index].words = Object.values(self.nodes._data);
+                        console.log(oldSeed);
+                        localStorage.setItem("seed", JSON.stringify(oldSeed));
+                    }
                 });
 			},
             pageBeforeOut: function (e, page) {

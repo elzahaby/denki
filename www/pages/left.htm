@@ -13,16 +13,21 @@
             <div class="list media-list">
                 <ul>
                     {{#each seed}}
-                    <li>
-                        <a href="/home/{{@index}}" data-reload-all="true" data-view=".view-main" class="item-link item-content panel-close">
-                            <div class="item-media"><i class="fas fa-leaf"></i></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">{{name}}</div>
-                                    <div class="item-after">{{dateFormat created format="DD. MM."}}</div>
+                    <li class="swipeout seeds" data-id="{{@index}}">
+                        <div class="swipeout-content">
+                            <a href="/home/{{@index}}" data-reload-all="true" data-view=".view-main" class="item-link item-content panel-close">
+                                <div class="item-media"><i class="fas fa-leaf"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">{{name}}</div>
+                                        <div class="item-after">{{dateFormat created format="DD. MM."}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+                        <div class="swipeout-actions-right">
+                            <a href="#" class="swipeout-delete swipeout-overswipe">Delete</a>
+                        </div>
                     </li>
                     {{/each}}
                 </ul>
@@ -76,8 +81,62 @@ return {
 		pageBeforeIn: function() {
 			var self = this;
 			var app = self.$app;
-			
+			self.$('.deleted-callback').on('swipeout:deleted', function () {
+                console.log("delete");
+            });
 		}
-	}
+	},
+    mounted() {
+        var self = this;
+        var app = self.$app;
+        self.$('.seeds').on('swipeout:deleted', function (e) {
+            var index = e.srcElement.dataset.id;
+            self.seed.splice(index, 1);
+            localStorage.setItem("seed", JSON.stringify(self.seed));
+            self.$setState({
+                seed: self.seed,
+            });
+            console.log(self.seed.length)
+            if(self.seed.length == 0) {
+                self.nodes = new vis.DataSet();
+                app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
+                    var index = 0;
+                    self.seed = [];
+
+                    self.seed[index] = {
+                        name: name,
+                        created: Date.now(),
+                        words : []
+                    };
+                    localStorage.setItem("seed", JSON.stringify(self.seed));
+                    self.$setState({
+                        seed: self.seed,
+                    });
+                });
+            }
+        });
+        
+        var data = localStorage.getItem("seed")
+        if(data != 'undefined')
+            var seed = JSON.parse(data)
+            
+        if(seed && seed.length == 0) {
+            self.nodes = new vis.DataSet();
+            app.dialog.prompt('Was möchtest du Brainstormen?', function (name) {
+                var index = 0;
+                self.seed = [];
+
+                self.seed[index] = {
+                    name: name,
+                    created: Date.now(),
+                    words : []
+                };
+                localStorage.setItem("seed", JSON.stringify(self.seed));
+                self.$setState({
+                    seed: self.seed,
+                });
+            });
+        }
+    }
 }
 </script>
