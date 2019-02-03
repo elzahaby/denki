@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.denki.app" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget id="com.denki.app" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <preference name='phonegap-version' value='cli-8.0.0' />
 	<preference name='pgb-builder-version' value='2' />
     <name>Denki</name>
     <description>
-       Brainstorm with the World
+       Simply bring your ideas and thoughts to the screen. Made to be easy and simple to brainstorm.
+       The app allows you to create Topics. For those Topics you can brainstorm by entering words in to the input field.
+       The Words are displayed in bubbles which can be rearranged as you please.
     </description>
     <author email="mohammad@elzahaby.at" href="https://elzahaby.at">
 	Mohammad Elzahaby
